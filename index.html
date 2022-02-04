@@ -5,9 +5,13 @@
   <body>
     <entry id="code">
       <global :var:y="0" />
-      <local :var:x="5" />
-      <for :from="y" :to="x" :iterator='i'>
+      <for :from="y" :to="5" :iterator='i'>
+        <local :var:x="5" />
         <print :message="Hel{x}lo wo{y}r{i}d!" />
+      </for>
+      <for :from="3" :to="5" :iterator='d'>
+        <!-- 'x' is local variable declared in previous block, so it is expected to be undefined -->
+        <print :message="HW{x}{y}{d}" />
       </for>
     </entry>
   </body>
