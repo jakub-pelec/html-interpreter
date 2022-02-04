@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>Example function</title>
+  </head>
+  <body>
+    <entry id="code">
+        <function :name='foo'>
+            <args :var:x='x'></args>
+            <fbody>
+                <for :from='0' :to='10' :iterator='i'>
+                    <print :message='{i} Printed from foo, and x = {x}'></print>
+                </for>
+            </fbody>
+        </function>
+        <call :name='foo' :var:x='5' />
+        <call :name='foo' :var:x='10' />
+    </entry>
+  </body>
+  <script src="./dist/main.js"></script>
+</html>
