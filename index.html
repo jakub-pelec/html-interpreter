@@ -5,7 +5,7 @@
   <body>
     <entry id="code">
       <global :var:y="2" />
-      <var :var:x="5" />
+      <local :var:x="5" />
       <for :from="y" :to="x" :iterator='i'>
         <print :message="Hel{x}lo wo{y}r{i}d!" />
       </for>
