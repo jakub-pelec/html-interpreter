@@ -1,22 +1,22 @@
 export default class StringInterpolator {
 
-    v: Variables = {};
+    vars: Variables = {};
     cursor: number = -1;
-    s: string = '';
-    f: string = '';
+    initString: string = '';
+    finalString: string = '';
     exprMode: boolean = false;
     expr: string[] = [];
 
     constructor(s: string, v?: Variables) {
-        this.s = s;
+        this.initString = s;
         if(v) {
-            this.v = v;
+            this.vars = v;
         }
     }
 
     getToken() {
         this.cursor++;
-        return this.s[this.cursor];
+        return this.initString[this.cursor];
     }
 
     checkToken(token: string) {
@@ -34,26 +34,26 @@ export default class StringInterpolator {
             this.exprMode = true;
             return;
         }
-        this.f += token;
+        this.finalString += token;
     }
 
     interpolate(name: string) {
-        if(this.v[name] !== undefined) {
-            this.f += this.v[name];
+        if(this.vars[name] !== undefined) {
+            this.finalString += this.vars[name];
             return;
         }
         if(window.variables[name] !== undefined) {
-            this.f += window.variables[name]
+            this.finalString += window.variables[name]
             return;
         }
-        this.f += 'undefined';
+        this.finalString += 'undefined';
         return;
     }
     
     process() {
-        while(this.cursor < this.s.length - 1) {
+        while(this.cursor < this.initString.length - 1) {
             this.checkToken(this.getToken());
         }
-        return this.f;
+        return this.finalString;
     }
 }
