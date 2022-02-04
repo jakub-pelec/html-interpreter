@@ -4,16 +4,16 @@
   </head>
   <body>
     <entry id="code">
-        <function :name='test'>
-            <args :var:x='x' :var:y='y'></args>
-            <fbody>
-                <for :from='x' :to='y'>
-                    <print :message='From function {x}{y}'></print>
-                </for>
-            </fbody>
-        </function>
-        <call :name='test' :var:x='0' :var:y='2'></call>
-        <call :name='test' :var:x='5' :var:y='7'></call>
+        <for :from='0' :to='20' :iterator="i">
+            <condition :expr='{i} % 2 == 0'>
+                <true>
+                    <print :message="{i} jest parzyste"></print>
+                </true>
+                <false>
+                    <print :message='{i} jest nieparzyste'></print>
+                </false>
+            </condition>
+        </for>
     </entry>
   </body>
   <script src="./dist/main.js"></script>

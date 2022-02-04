@@ -5,6 +5,7 @@ import fVar from "./features/local";
 import getChildNodes from "./helpers/getChildNodes";
 import fFunction from './features/function';
 import fCall from './features/call';
+import fCondition from './features/condition';
 
 enum Tokens {
   'GLOBAL' = 'GLOBAL',
@@ -13,10 +14,11 @@ enum Tokens {
   'LOCAL' = 'LOCAL',
   'FUNCTION' = 'FUNCTION',
   'ARGS' = 'ARGS',
-  'CALL' = 'CALL'
+  'CALL' = 'CALL',
+  'CONDITION' = "CONDITION"
 }
 
-const endTokens = [Tokens.FOR];
+const endTokens = [Tokens.FOR, Tokens.CONDITION];
 
 window.variables = {};
 
@@ -24,12 +26,13 @@ const code = document.querySelector("entry#code");
 
 const parseNode = (node: Element, vars?: Variables) => {
   const token: Tokens = node.tagName as Tokens;
+  const connectedVars = {...window.variables, ...vars};
   switch (token) {
     case Tokens.GLOBAL:
       fGlobal(node);
       break;
     case Tokens.FOR:
-      fFor(node, parseNode, vars);
+      fFor(node, parseNode, connectedVars);
       break;
     case Tokens.PRINT:
       fPrint(node, vars);
@@ -39,10 +42,13 @@ const parseNode = (node: Element, vars?: Variables) => {
       vars = { ...vars, ...newVars };
       break;
     case Tokens.FUNCTION:
-      fFunction(node, parseNode, vars);
+      fFunction(node, parseNode, connectedVars);
       break;
     case Tokens.CALL:
       fCall(node);
+      break;
+    case Tokens.CONDITION:
+      fCondition(node, parseNode, connectedVars);
       break;
   }
   if (node.childNodes && !endTokens.includes(token)) {
