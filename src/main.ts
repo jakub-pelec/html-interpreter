@@ -1,7 +1,6 @@
 import fFor from "./features/for";
 import fGlobal from "./features/global";
 import fPrint from "./features/print";
-import fVar from "./features/local";
 import getChildNodes from "./helpers/getChildNodes";
 import fFunction from './features/function';
 import fCall from './features/call';
@@ -36,10 +35,6 @@ const parseNode = (node: Element, vars?: Variables) => {
       break;
     case Tokens.PRINT:
       fPrint(node, vars);
-      break;
-    case Tokens.LOCAL:
-      const newVars = fVar(node);
-      vars = { ...vars, ...newVars };
       break;
     case Tokens.FUNCTION:
       fFunction(node, parseNode, connectedVars);
