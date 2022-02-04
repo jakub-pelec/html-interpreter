@@ -4,17 +4,16 @@
   </head>
   <body>
     <entry id="code">
-      <global :var:y="0" />
-      <for :from="y" :to="5" :iterator='i'>
-        <local :var:x="5" />
-        <print :message="Hel{x}lo wo{y}r{i}d!" />
-      </for>
-      <for :from="0" :to="5" :iterator='a'>
-        <!-- 'x' is local variable declared in previous block, so it is expected to be undefined -->
-        <for :from="0" :to="5" :iterator='b'>
-          <print :message="{a}{b}" />
-        </for>
-      </for>
+        <function :name='test'>
+            <args :var:x='x' :var:y='y'></args>
+            <fbody>
+                <for :from='x' :to='y'>
+                    <print :message='From function {x}{y}'></print>
+                </for>
+            </fbody>
+        </function>
+        <call :name='test' :var:x='0' :var:y='2'></call>
+        <call :name='test' :var:x='5' :var:y='7'></call>
     </entry>
   </body>
   <script src="./dist/main.js"></script>
