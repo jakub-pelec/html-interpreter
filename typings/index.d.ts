@@ -1,8 +1,8 @@
 interface Variables {
-    [key: string]: string
+    [key: string]: string | number
 }
 
-declare type NodeParser = (node: Element) => void
+declare type NodeParser = (node: Element, vars?: Variables) => void
 declare module globalThis {
     var variables: Variables
 }

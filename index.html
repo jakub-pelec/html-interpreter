@@ -1,14 +1,15 @@
 <html>
-    <head>
-        <title>Programming in HTML</title>
-    </head>
-    <body>
-        <code id='code'>
-            <var :var:x='2' />
-            <for :from='0' :to='x'>
-                <print :message='Hello world!' />
-            </for>
-        </code>
-    </body>
-    <script src="./dist/main.js"></script>
+  <head>
+    <title>Programming in HTML</title>
+  </head>
+  <body>
+    <entry id="code">
+      <global :var:y="2" />
+      <var :var:x="5" />
+      <for :from="y" :to="x" :iterator='i'>
+        <print :message="Hel{x}lo wo{y}r{i}d!" />
+      </for>
+    </entry>
+  </body>
+  <script src="./dist/main.js"></script>
 </html>
