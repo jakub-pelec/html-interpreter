@@ -3,6 +3,13 @@ import fGlobal from "./features/global";
 import fPrint from "./features/print";
 import fVar from "./features/local";
 
+enum Tokens {
+  'GLOBAL' = 'GLOBAL',
+  'FOR' = 'FOR',
+  'PRINT' = 'PRINT',
+  'LOCAL' = 'LOCAL'
+}
+
 window.variables = {};
 
 const code = document.querySelector("entry#code");
@@ -14,16 +21,16 @@ const parseNode = (node: Element, vars?: Variables) => {
   const token = node.tagName;
 
   switch (token) {
-    case "GLOBAL":
+    case Tokens.GLOBAL:
       fGlobal(node);
       break;
-    case "FOR":
+    case Tokens.FOR:
       fFor(node, parseNode, vars);
       break;
-    case "PRINT":
+    case Tokens.PRINT:
       fPrint(node, vars);
       break;
-    case "LOCAL":
+    case Tokens.LOCAL:
       const newVars = fVar(node);
       vars = { ...vars, ...newVars };
       break;

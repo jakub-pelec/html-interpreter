@@ -38,11 +38,11 @@ export default class StringInterpolator {
     }
 
     interpolate(name: string) {
-        if(this.v[name]) {
+        if(this.v[name] !== undefined) {
             this.f += this.v[name];
             return;
         }
-        if(window.variables[name]) {
+        if(window.variables[name] !== undefined) {
             this.f += window.variables[name]
             return;
         }
