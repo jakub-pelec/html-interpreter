@@ -2,6 +2,7 @@ import fFor from "./features/for";
 import fGlobal from "./features/global";
 import fPrint from "./features/print";
 import fVar from "./features/local";
+import getChildNodes from "./helpers/getChildNodes";
 
 enum Tokens {
   'GLOBAL' = 'GLOBAL',
@@ -15,9 +16,6 @@ window.variables = {};
 const code = document.querySelector("entry#code");
 
 const parseNode = (node: Element, vars?: Variables) => {
-  if (!(node instanceof HTMLElement)) {
-    return false;
-  }
   const token = node.tagName;
 
   switch (token) {
@@ -36,12 +34,12 @@ const parseNode = (node: Element, vars?: Variables) => {
       break;
   }
   if (node.childNodes && token !== 'FOR') {
-    for (let childNode of Array.from(node.childNodes)) {
+    for (const childNode of getChildNodes(node)) {
       parseNode(childNode as Element, vars);
     }
   }
 };
 
-for (const childNode of Array.from(code!.childNodes)) {
+for (const childNode of getChildNodes(code!)) {
   parseNode(childNode as Element);
 }

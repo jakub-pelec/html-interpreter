@@ -9,9 +9,11 @@
         <local :var:x="5" />
         <print :message="Hel{x}lo wo{y}r{i}d!" />
       </for>
-      <for :from="3" :to="5" :iterator='d'>
+      <for :from="0" :to="5" :iterator='a'>
         <!-- 'x' is local variable declared in previous block, so it is expected to be undefined -->
-        <print :message="HW{x}{y}{d}" />
+        <for :from="0" :to="5" :iterator='b'>
+          <print :message="{a}{b}" />
+        </for>
       </for>
     </entry>
   </body>
